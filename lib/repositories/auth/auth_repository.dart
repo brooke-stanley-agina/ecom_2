@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class AuthRepository extends BaseAuthRepository {
   final auth.FirebaseAuth _firebaseAuth;
-  AuthRepository({required auth.FirebaseAuth? firebaseAuth})
+  AuthRepository({auth.FirebaseAuth? firebaseAuth})
       : _firebaseAuth = auth.FirebaseAuth.instance;
 
   @override

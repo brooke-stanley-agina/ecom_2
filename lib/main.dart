@@ -31,17 +31,25 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: MultiBlocProvider(
+        home: MultiRepositoryProvider(
           providers: [
-            BlocProvider(
-                create: ((context) => AuthBloc(
-                    authRepository: context.read<AuthRepository>(),
-                    userRepository: context.read<UserRepository>())))
+            RepositoryProvider(
+              create: (context) => AuthRepository(),
+            ),
+            RepositoryProvider(create: (context) => UserRepository())
           ],
-          child: const MaterialApp(
-            title: 'Ecommerce App',
-            onGenerateRoute: AppRouter.onGenerateRoute,
-            initialRoute: SplashScreen.routeName,
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                  create: ((context) => AuthBloc(
+                      authRepository: context.read<AuthRepository>(),
+                      userRepository: context.read<UserRepository>())))
+            ],
+            child: const MaterialApp(
+              title: 'Ecommerce App',
+              onGenerateRoute: AppRouter.onGenerateRoute,
+              initialRoute: SplashScreen.routeName,
+            ),
           ),
         ));
   }
